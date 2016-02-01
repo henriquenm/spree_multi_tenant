@@ -10,6 +10,7 @@ module SpreeMultiTenant
       Spree::Asset,
       Spree::Calculator,
       Spree::Country,
+      Spree::Configuration,
       Spree::CreditCard,
       Spree::Gateway,
       Spree::InventoryUnit,
@@ -47,7 +48,6 @@ module SpreeMultiTenant
       Spree::ZoneMember,
       Spree::Zone,
 
-      # Spree::Configuration,
       # Spree::TokenizedPermission,
       # Spree::OptionTypesPrototype,
       # Spree::OptionValuesVariant,
