@@ -21,8 +21,7 @@ SpreeMultiTenant.tenanted_controllers.each do |controller|
     prepend_around_filter :tenant_scope
 
     def current_tenant
-      binding.pry
-      Multitenant.current_tenant
+      Spree::Tenant.find_by_domain(request.host)
     end
 
     private
