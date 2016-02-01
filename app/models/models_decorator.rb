@@ -20,8 +20,6 @@ SpreeMultiTenant.tenanted_models.each do |model|
     belongs_to_multitenant
     # raise_error_if_no_tenant if Rails.env = 'production'   # TODO - would this be useful?
 
-    default_scope { binding.pry }
-
     # always scope these models with the tenant, even if requested unscoped
     def self.unscoped
       r = relation
