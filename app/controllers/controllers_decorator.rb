@@ -36,7 +36,7 @@ SpreeMultiTenant.tenanted_controllers.each do |controller|
 
         # Execute ActiveRecord queries within the scope of the tenant
         #  SpreeMultiTenant.with_tenant tenant do
-        #   yield
+        yield
         # end
       end
 
