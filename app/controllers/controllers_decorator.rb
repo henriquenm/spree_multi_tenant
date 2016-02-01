@@ -35,11 +35,9 @@ SpreeMultiTenant.tenanted_controllers.each do |controller|
         prepend_view_path(path)
 
         # Execute ActiveRecord queries within the scope of the tenant
-        # SpreeMultiTenant.with_tenant tenant do
-        # Spree::Product.where(tenant_id: tenant.id).scoping do
-        with_scope(find: where(tenant: tenant)) do
-          yield
-        end
+        #  SpreeMultiTenant.with_tenant tenant do
+        #   yield
+        # end
       end
 
   end
