@@ -4,9 +4,9 @@ require 'active_record'
 module SpreeMultiTenant
   module ActiveRecordExtensions
     def raise_error_if_no_tenant(association = :tenant)
-      # default_scope lambda {
-      #   raise 'OperationWithNoTenant' unless Multitenant.current_tenant
-      # }
+      default_scope lambda {
+        raise 'OperationWithNoTenant' unless Multitenant.current_tenant
+      }
     end
   end
 end
