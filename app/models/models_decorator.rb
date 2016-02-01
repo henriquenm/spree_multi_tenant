@@ -18,14 +18,6 @@ SpreeMultiTenant.tenanted_models.each do |model|
 
     belongs_to :tenant
     belongs_to_multitenant
-
-    def self.default_scope(scope = nil)
-      super
-      scope = Proc.new if block_given?
-
-      self.default_scopes += [scope]
-      self.default_scopes += [where(:tenant_id => Multitenant.current_tenant.id)] if Multitenant.current_tenant
-    end
     # raise_error_if_no_tenant if Rails.env = 'production'   # TODO - would this be useful?
 
     # always scope these models with the tenant, even if requested unscoped
