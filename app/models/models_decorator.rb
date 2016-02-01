@@ -19,7 +19,8 @@ SpreeMultiTenant.tenanted_models.each do |model|
     belongs_to :tenant
     belongs_to_multitenant
 
-    def self.default_scope(scope = nil) 
+    def self.default_scope(scope = nil)
+      super
       scope = Proc.new if block_given?
 
       self.default_scopes += [scope]
