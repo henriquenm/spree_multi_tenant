@@ -18,11 +18,8 @@ end
 SpreeMultiTenant.tenanted_controllers.each do |controller|
   controller.class_eval do
 
-    prepend_around_filter :tenant_scope
-
-    def current_tenant
-      Multitenant.current_tenant
-    end
+    set_current_tenant_through_filter
+    before_filter :tenant_scope
 
     private
       
@@ -30,14 +27,14 @@ SpreeMultiTenant.tenanted_controllers.each do |controller|
         tenant = Spree::Tenant.find_by_domain(request.host)
         raise 'DomainUnknown' unless tenant
 
+        set_current_tenant(tenant)
+
         # Add tenant views path
         path = "app/tenants/#{tenant.code}/views"
         prepend_view_path(path)
 
         # Execute ActiveRecord queries within the scope of the tenant
-        model = controller_name.singularize.camelcase.constantize rescue nil
-        model = model.nil? ? ("Spree::" + controller_name.singularize.camelcase).constantize : model
-        model.where(tenant: Spree::Tenant.first).scoping do
+        SpreeMultiTenant.with_tenant tenant do
           yield
         end
       end
