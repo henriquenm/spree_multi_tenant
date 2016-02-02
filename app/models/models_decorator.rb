@@ -20,8 +20,6 @@ SpreeMultiTenant.tenanted_models.each do |model|
     belongs_to_multitenant
     # raise_error_if_no_tenant if Rails.env = 'production'   # TODO - would this be useful?
 
-    binding.pry
-
     # always scope these models with the tenant, even if requested unscoped
     def self.unscoped
       r = relation
@@ -35,7 +33,6 @@ end
 
 Spree::Core::Search::Base.class_eval do
     def get_base_scope
-      binding.pry
       base_scope = Spree::Product.active
       base_scope = base_scope.where(tenant_id: Multitenant.current_tenant.id) if Multitenant.current_tenant
       base_scope = base_scope.in_taxon(taxon) unless taxon.blank?
