@@ -18,7 +18,7 @@ end
 SpreeMultiTenant.tenanted_controllers.each do |controller|
   controller.class_eval do
 
-    # set_current_tenant_through_filter
+    set_current_tenant_through_filter
     before_filter :tenant_scope
 
     private
