@@ -35,6 +35,7 @@ SpreeMultiTenant.tenanted_controllers.each do |controller|
         prepend_view_path(path)
 
         # Execute ActiveRecord queries within the scope of the tenant
+        binding.pry
         SpreeMultiTenant.with_tenant tenant do
           yield
         end
