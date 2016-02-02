@@ -35,8 +35,9 @@ SpreeMultiTenant.tenanted_controllers.each do |controller|
         prepend_view_path(path)
 
         # Execute ActiveRecord queries within the scope of the tenant
-        model_name = "Spree::" + controller_name.singularize.camelcase
-        model_name.constantize.where(tenant: Spree::Tenant.first).scoping do
+        model = controller_name.singularize.camelcase.constantize rescue nil
+        model = model.nil? ? ("Spree::" + controller_name.singularize.camelcase).constantize : model
+        model.where(tenant: Spree::Tenant.first).scoping do
           yield
         end
       end
