@@ -8,7 +8,9 @@ end
 
 module SpreeMultiTenant
   def self.init_preferences
+    binding.pry
     Spree::Preference.all.each do |preference|
+      binding.pry
       Spree::Preferences::Store.instance.set_without_persist(preference.key, preference.value)
     end
   end
@@ -34,9 +36,11 @@ SpreeMultiTenant.tenanted_controllers.each do |controller|
         path = "app/tenants/#{tenant.code}/views"
         prepend_view_path(path)
 
-        # Execute ActiveRecord queries within the scope of the tenant
         binding.pry
+
+        # Execute ActiveRecord queries within the scope of the tenant
         SpreeMultiTenant.with_tenant tenant do
+          binding.pry
           yield
         end
       end
