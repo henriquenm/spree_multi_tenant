@@ -35,15 +35,9 @@ SpreeMultiTenant.tenanted_controllers.each do |controller|
         prepend_view_path(path)
 
         # Execute ActiveRecord queries within the scope of the tenant
-        if controller_name == "products"
-          model_name = "Spree::" + controller_name.singularize.camelcase  
-          model_name.constantize.where(tenant: tenant) do
-            yield
-          end
-        else
-          SpreeMultiTenant.with_tenant tenant do
-            yield
-          end
+        binding.pry
+        SpreeMultiTenant.with_tenant tenant do
+          yield
         end
       end
 
