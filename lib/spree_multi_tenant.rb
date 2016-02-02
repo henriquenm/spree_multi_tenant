@@ -1,6 +1,6 @@
 require 'spree_core'
 require 'spree_multi_tenant/engine'
-require 'multitenant'
+require 'acts_as_tenant'
 
 module SpreeMultiTenant
   def self.tenanted_models
